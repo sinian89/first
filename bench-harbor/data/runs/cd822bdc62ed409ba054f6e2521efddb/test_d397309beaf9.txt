@@ -1,0 +1,62 @@
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-8.4.1, pluggy-1.6.0 -- /usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collecting ... collected 22 items
+
+../tests/test_outputs.py::TestReprojection::test_dem_exists_and_crs PASSED [  4%]
+../tests/test_outputs.py::TestReprojection::test_zones_gpkg_exists_and_crs PASSED [  9%]
+../tests/test_outputs.py::TestReprojection::test_points_gpkg_exists_and_crs PASSED [ 13%]
+../tests/test_outputs.py::TestReprojection::test_datum_transformation_precision PASSED [ 18%]
+../tests/test_outputs.py::TestReprojection::test_bilinear_resampling PASSED [ 22%]
+../tests/test_outputs.py::TestReprojection::test_points_count PASSED     [ 27%]
+../tests/test_outputs.py::TestRasterization::test_grid_alignment PASSED  [ 31%]
+../tests/test_outputs.py::TestZonalStats::test_values PASSED             [ 36%]
+../tests/test_outputs.py::TestZonalStats::test_std_population PASSED     [ 40%]
+../tests/test_outputs.py::TestZonalStats::test_nodata_count PASSED       [ 45%]
+../tests/test_outputs.py::TestVectorJoin::test_enriched_gpkg PASSED      [ 50%]
+../tests/test_outputs.py::TestTerrain::test_hillshade PASSED             [ 54%]
+../tests/test_outputs.py::TestTerrain::test_slope_exists_and_degrees PASSED [ 59%]
+../tests/test_outputs.py::TestNormalized::test_range_and_nodata PASSED   [ 63%]
+../tests/test_outputs.py::TestNormalized::test_nodata_preserved PASSED   [ 68%]
+../tests/test_outputs.py::TestSpatialOverlay::test_csv_schema PASSED     [ 72%]
+../tests/test_outputs.py::TestSpatialOverlay::test_all_points_match PASSED [ 77%]
+../tests/test_outputs.py::TestComposite::test_band_ordering PASSED       [ 81%]
+../tests/test_outputs.py::TestNoData::test_dem_nodata PASSED             [ 86%]
+../tests/test_outputs.py::TestAudit::test_audit_exists_and_schema PASSED [ 90%]
+../tests/test_outputs.py::TestAudit::test_audit_crs_consistency PASSED   [ 95%]
+../tests/test_outputs.py::TestAudit::test_audit_dimensions_consistent PASSED [100%]
+
+=============================== warnings summary ===============================
+../usr/local/lib/python3.10/dist-packages/_pytest/cacheprovider.py:475
+  /usr/local/lib/python3.10/dist-packages/_pytest/cacheprovider.py:475: PytestCacheWarning: could not create cache path /tests/.pytest_cache/v/cache/nodeids: [Errno 30] Read-only file system: '/tests/pytest-cache-files-gsx9mpom'
+    config.cache.set("cache/nodeids", sorted(self.cached_nodeids))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::TestReprojection::test_dem_exists_and_crs
+PASSED ../tests/test_outputs.py::TestReprojection::test_zones_gpkg_exists_and_crs
+PASSED ../tests/test_outputs.py::TestReprojection::test_points_gpkg_exists_and_crs
+PASSED ../tests/test_outputs.py::TestReprojection::test_datum_transformation_precision
+PASSED ../tests/test_outputs.py::TestReprojection::test_bilinear_resampling
+PASSED ../tests/test_outputs.py::TestReprojection::test_points_count
+PASSED ../tests/test_outputs.py::TestRasterization::test_grid_alignment
+PASSED ../tests/test_outputs.py::TestZonalStats::test_values
+PASSED ../tests/test_outputs.py::TestZonalStats::test_std_population
+PASSED ../tests/test_outputs.py::TestZonalStats::test_nodata_count
+PASSED ../tests/test_outputs.py::TestVectorJoin::test_enriched_gpkg
+PASSED ../tests/test_outputs.py::TestTerrain::test_hillshade
+PASSED ../tests/test_outputs.py::TestTerrain::test_slope_exists_and_degrees
+PASSED ../tests/test_outputs.py::TestNormalized::test_range_and_nodata
+PASSED ../tests/test_outputs.py::TestNormalized::test_nodata_preserved
+PASSED ../tests/test_outputs.py::TestSpatialOverlay::test_csv_schema
+PASSED ../tests/test_outputs.py::TestSpatialOverlay::test_all_points_match
+PASSED ../tests/test_outputs.py::TestComposite::test_band_ordering
+PASSED ../tests/test_outputs.py::TestNoData::test_dem_nodata
+PASSED ../tests/test_outputs.py::TestAudit::test_audit_exists_and_schema
+PASSED ../tests/test_outputs.py::TestAudit::test_audit_crs_consistency
+PASSED ../tests/test_outputs.py::TestAudit::test_audit_dimensions_consistent
+======================== 22 passed, 1 warning in 0.28s =========================

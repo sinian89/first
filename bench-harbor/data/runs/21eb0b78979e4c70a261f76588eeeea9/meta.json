@@ -1,0 +1,9 @@
+{
+  "session_id": "21eb0b78979e4c70a261f76588eeeea9",
+  "task_id": "gdal-coordinate-surgery/gdal-coordinate-surgery",
+  "image": "bench-harbor/gdal-coordinate-surgery-gdal-coordinate-surgery:local",
+  "container_id": "b47cd510f4ab323ad4d12c6e41c4f1f371decca196f5a410457f2df14c2b282d",
+  "container_name": "bh-gdal-coordinate-surgery-gdal-coordinate-surgery",
+  "external_run_id": "240e1a74a84948b083de889363ea7f0c",
+  "updated_at": "2026-03-31T02:07:46.761929+00:00"
+}

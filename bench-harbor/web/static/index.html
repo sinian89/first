@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bench Harbor</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/css/xterm.min.css" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="top">
+    <h1>Bench Harbor</h1>
+    <p class="sub">Select a task, start a Docker session, run oracle / LLM / human simulation, then verify with tests. Full logs and conversations are saved under <code>bench-harbor/data/runs/&lt;session_id&gt;/</code> (see <code>artifacts.jsonl</code> for an index).</p>
+  </header>
+
+  <main class="grid">
+    <section class="panel">
+      <h2>1. Task</h2>
+      <label for="taskSelect">Task (unique id)</label>
+      <select id="taskSelect"></select>
+      <button type="button" id="btnPrepare" class="primary">Build image &amp; start session</button>
+      <p id="sessionInfo" class="muted"></p>
+      <button type="button" id="btnTeardown" class="danger" disabled>Stop session &amp; remove container</button>
+    </section>
+
+    <section class="panel">
+      <h2>2. Simulation</h2>
+      <div class="row">
+        <button type="button" id="btnOracle" disabled>Oracle (<code>solve.sh</code>)</button>
+        <button type="button" id="btnLLM" disabled>LLM</button>
+        <button type="button" id="btnHumanStart" disabled>Human start</button>
+        <button type="button" id="btnHumanEnd" disabled>Human end</button>
+      </div>
+      <p class="muted small">Oracle and test run non-interactively in the container. Human mode lets you type in the terminal until you click Human end.</p>
+    </section>
+
+    <section class="panel wide" id="panelLlmProcess">
+      <h2>LLM conversation (live)</h2>
+      <p class="muted small">While an LLM run is in progress, each round (model message → shell command → output → next user message) appears here in order.</p>
+      <div class="row">
+        <button type="button" id="btnLlmClearFeed">Clear panel</button>
+      </div>
+      <div id="llmProcessFeed" class="llm-feed" aria-live="polite" aria-relevant="additions">
+        <p class="muted small llm-feed-empty" id="llmFeedEmpty">Run <strong>LLM</strong> to stream the conversation here.</p>
+      </div>
+    </section>
+
+    <section class="panel wide">
+      <h2>Terminal</h2>
+      <div class="term-wrap">
+        <div id="terminal"></div>
+      </div>
+      <div class="row">
+        <button type="button" id="btnConnect" disabled>Connect terminal</button>
+        <span id="wsStatus" class="muted small"></span>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>3. Verify</h2>
+      <button type="button" id="btnTest" disabled>Run tests (<code>test.sh</code>)</button>
+    </section>
+
+    <section class="panel">
+      <h2>Logs</h2>
+      <button type="button" id="btnRefreshLogs" disabled>Refresh event log</button>
+      <button type="button" id="btnDownloadLogs" disabled>Download events.jsonl</button>
+      <button type="button" id="btnDownloadArtifacts" disabled>Download artifacts.jsonl</button>
+      <pre id="logPreview" class="log-preview"></pre>
+    </section>
+  </main>
+
+  <!-- LLM modal -->
+  <div id="modalLLM" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-inner">
+      <h3>LLM simulation</h3>
+      <p class="small muted">OpenAI-compatible API. The task <code>instruction.md</code> is sent first; each step runs a <code>bash</code> block from the model inside the container.</p>
+      <label>Base URL <input type="url" id="llmBase" placeholder="https://api.openai.com" /></label>
+      <label>Model <input type="text" id="llmModel" placeholder="gpt-4o-mini" /></label>
+      <label>API key (optional) <input type="password" id="llmKey" autocomplete="off" /></label>
+      <label>Max steps <input type="number" id="llmSteps" value="30" min="1" max="200" /></label>
+      <label title="Wait after each shell step before the next API call (helps avoid 429 rate limits)">Delay between steps (sec) <input type="number" id="llmDelay" value="2" min="0" max="120" step="0.5" /></label>
+      <div class="row end">
+        <button type="button" id="llmCancel">Cancel</button>
+        <button type="button" id="llmRun" class="primary">Run</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Output modal (oracle / test / LLM transcript) -->
+  <div id="modalOut" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-inner large">
+      <h3 id="modalOutTitle">Output</h3>
+      <pre id="modalOutBody" class="out-body"></pre>
+      <div class="row end">
+        <button type="button" id="modalOutClose">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/lib/xterm.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-fit@0.10.0/lib/addon-fit.min.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>

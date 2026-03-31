@@ -1,0 +1,2 @@
+Sequential Run 1
+/tests/test.sh: line 9:    21 Segmentation fault      (core dumped) /tmp/test_runner

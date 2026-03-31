@@ -1,0 +1,4 @@
+{"ts": "2026-03-31T01:36:23.858109+00:00", "type": "session_created", "attempt_id": null, "payload": {"task_id": "gdal-coordinate-surgery/gdal-coordinate-surgery", "image": "bench-harbor/gdal-coordinate-surgery-gdal-coordinate-surgery:local", "container_id": "3d113fae2dcf8bda03b0583a9d7e2d940241863a9b3db7b8eac8fa363d299bd9"}}
+{"ts": "2026-03-31T01:36:25.852619+00:00", "type": "human_start", "attempt_id": "05c6afab9d9e", "payload": {}}
+{"ts": "2026-03-31T01:36:26.568596+00:00", "type": "terminal_attached", "attempt_id": null, "payload": {"container": "3d113fae2dcf", "pty": true}}
+{"ts": "2026-03-31T01:54:06.283029+00:00", "type": "terminal_detached", "attempt_id": null, "payload": {"bytes_to_container": 48, "bytes_from_container": 952}}

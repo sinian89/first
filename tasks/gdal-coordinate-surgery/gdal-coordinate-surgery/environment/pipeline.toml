@@ -1,0 +1,70 @@
+[target]
+crs = "EPSG:3035"
+
+[reproject]
+# Reproject all three datasets to target CRS.
+# DEM resampling must use bilinear interpolation.
+# Preserve the DEM NoData value through reprojection.
+# Vector outputs: GeoPackage format (.gpkg), one layer per file.
+zones_out = "zones_3035.gpkg"
+dem_out = "dem_3035.tif"
+points_out = "points_3035.gpkg"
+
+[rasterize]
+# Burn ZONE_ID values onto a raster grid that is pixel-aligned
+# with the reprojected DEM (identical extent, resolution, dimensions).
+output = "zones_raster.tif"
+attribute = "ZONE_ID"
+nodata = 0
+dtype = "Int32"
+
+[zonal_stats]
+# Compute per-zone statistics of the reprojected DEM.
+# Exclude NoData pixels from all statistics.
+output = "zonal_stats.json"
+# Schema: {"<zone_id>": {"mean", "min", "max", "std", "count", "nodata_count"}}
+# std = population standard deviation (ddof=0)
+# nodata_count = number of NoData DEM pixels within the zone
+
+[vector_join]
+# Join zonal stats back onto the reprojected zones as new attributes.
+# Field names: elev_mean, elev_min, elev_max, elev_std, elev_count
+# Output format: GeoPackage
+output = "zones_enriched.gpkg"
+
+[terrain]
+# Generate terrain derivatives from the reprojected DEM.
+hillshade_output = "hillshade.tif"
+hillshade_azimuth = 315
+hillshade_altitude = 45
+hillshade_edge_handling = true
+
+slope_output = "slope_deg.tif"
+slope_unit = "degrees"
+slope_edge_handling = true
+
+[normalize]
+# Min-max normalize the reprojected DEM to [0.0, 1.0].
+# Use only valid (non-NoData) pixels for min/max computation.
+# NoData pixels must remain NoData in output (same NoData value as input).
+output = "dem_norm.tif"
+dtype = "Float32"
+
+[spatial_check]
+# For each reprojected point, determine which zone polygon it falls in.
+# Compare the zone_id attribute from the CSV against the spatial overlay result.
+output = "point_zones.csv"
+# Columns: id, zone_id_attr, zone_id_spatial
+
+[composite]
+# Build a multi-band VRT from the terrain products and DEM.
+output = "composite.vrt"
+# Band order: hillshade, slope, dem (3 bands total)
+# NOTE: band order is hillshade=1, slope=2, dem=3
+
+[audit]
+# Write a JSON report summarizing key properties of each output raster.
+# For each raster (dem_3035.tif, zones_raster.tif, hillshade.tif, slope_deg.tif,
+# dem_norm.tif): record crs_epsg, width, height, nodata_value, band_count,
+# pixel_size_x, pixel_size_y, min_value, max_value.
+output = "audit.json"

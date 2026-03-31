@@ -1,0 +1,9 @@
+{
+  "session_id": "2f71a6fbeb1a4df381356550a7a36ae0",
+  "task_id": "sinian-1",
+  "image": "bench-harbor/sinian-1:local",
+  "container_id": "495d2eb0a9aa79e18a9c9a605abca86d204bb2d3383b69fefb747b48caf484ff",
+  "container_name": "bh-sinian-1",
+  "external_run_id": "ece0232f43f74b8aa3580f23af211eaf",
+  "updated_at": "2026-03-31T12:11:44.962215+00:00"
+}

@@ -1,0 +1,34 @@
+=== Inspecting source data ===
+Layer SRS WKT:
+        ID["EPSG",4326]],
+            ID["EPSG",9807]],
+            ID["EPSG",8801]],
+            ID["EPSG",8802]],
+            ID["EPSG",8805]],
+            ID["EPSG",8806]],
+            ID["EPSG",8807]]],
+    ID["EPSG",32630]]
+id,longitude,latitude,zone_id
+1,-0.34921520,51.37242041,1
+Creating output file that is 713P x 796L.
+Processing data/dem.tif [1/1] : 0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+=== Pipeline complete ===
+total 5948
+drwxr-xr-x 2 root root    4096 Mar 31 13:51 .
+drwxr-xr-x 1 root root    4096 Mar 31 13:51 ..
+-rw-r--r-- 1 root root    1224 Mar 31 13:51 audit.json
+-rw-r--r-- 1 root root    2432 Mar 31 13:51 composite.vrt
+-rw-r--r-- 1 root root 1840552 Mar 31 13:51 dem_3035.tif
+-rw-r--r-- 1 root root 1896175 Mar 31 13:51 dem_norm.tif
+-rw-r--r-- 1 root root   15778 Mar 31 13:51 hillshade.tif
+-rw-r--r-- 1 root root     163 Mar 31 13:51 point_zones.csv
+-rw-r--r-- 1 root root   98304 Mar 31 13:51 points_3035.gpkg
+-rw-r--r-- 1 root root 1904081 Mar 31 13:51 slope_deg.tif
+-rw-r--r-- 1 root root     694 Mar 31 13:51 zonal_stats.json
+-rw-r--r-- 1 root root  106496 Mar 31 13:51 zones_3035.gpkg
+-rw-r--r-- 1 root root   98304 Mar 31 13:51 zones_enriched.gpkg
+-rw-r--r-- 1 root root  102187 Mar 31 13:51 zones_raster.tif

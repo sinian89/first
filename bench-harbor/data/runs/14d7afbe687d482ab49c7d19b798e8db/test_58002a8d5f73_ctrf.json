@@ -1,0 +1,218 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 22,
+            "passed": 22,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1774965114.4495547,
+            "stop": 1774965114.7354734
+        },
+        "tests": [
+            {
+                "name": "test_outputs.py::TestReprojection::test_dem_exists_and_crs",
+                "status": "passed",
+                "duration": 0.0157307805493474,
+                "start": 1774965114.55833,
+                "stop": 1774965114.5743616,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestReprojection::test_zones_gpkg_exists_and_crs",
+                "status": "passed",
+                "duration": 0.00266997329890728,
+                "start": 1774965114.5745804,
+                "stop": 1774965114.577445,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestReprojection::test_points_gpkg_exists_and_crs",
+                "status": "passed",
+                "duration": 0.0022572996094822884,
+                "start": 1774965114.5776353,
+                "stop": 1774965114.5800858,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestReprojection::test_datum_transformation_precision",
+                "status": "passed",
+                "duration": 0.015874620527029037,
+                "start": 1774965114.580274,
+                "stop": 1774965114.5963628,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestReprojection::test_bilinear_resampling",
+                "status": "passed",
+                "duration": 0.015028851106762886,
+                "start": 1774965114.5965633,
+                "stop": 1774965114.6118915,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestReprojection::test_points_count",
+                "status": "passed",
+                "duration": 0.0024914592504501343,
+                "start": 1774965114.6121192,
+                "stop": 1774965114.6147988,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestRasterization::test_grid_alignment",
+                "status": "passed",
+                "duration": 0.0005864016711711884,
+                "start": 1774965114.6149838,
+                "stop": 1774965114.615757,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestZonalStats::test_values",
+                "status": "passed",
+                "duration": 0.01751078385859728,
+                "start": 1774965114.61595,
+                "stop": 1774965114.6337712,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestZonalStats::test_std_population",
+                "status": "passed",
+                "duration": 0.013400694355368614,
+                "start": 1774965114.634014,
+                "stop": 1774965114.647685,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestZonalStats::test_nodata_count",
+                "status": "passed",
+                "duration": 0.014470022171735764,
+                "start": 1774965114.6479158,
+                "stop": 1774965114.6626432,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestVectorJoin::test_enriched_gpkg",
+                "status": "passed",
+                "duration": 0.0027946485206484795,
+                "start": 1774965114.6628668,
+                "stop": 1774965114.665857,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestTerrain::test_hillshade",
+                "status": "passed",
+                "duration": 0.00046642590314149857,
+                "start": 1774965114.6660495,
+                "stop": 1774965114.6666946,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestTerrain::test_slope_exists_and_degrees",
+                "status": "passed",
+                "duration": 0.008916163817048073,
+                "start": 1774965114.666878,
+                "stop": 1774965114.6759982,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestNormalized::test_range_and_nodata",
+                "status": "passed",
+                "duration": 0.008829910308122635,
+                "start": 1774965114.6761954,
+                "stop": 1774965114.6852171,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestNormalized::test_nodata_preserved",
+                "status": "passed",
+                "duration": 0.016392995603382587,
+                "start": 1774965114.6854103,
+                "stop": 1774965114.70204,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestSpatialOverlay::test_csv_schema",
+                "status": "passed",
+                "duration": 0.0004455186426639557,
+                "start": 1774965114.7022593,
+                "stop": 1774965114.7028868,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestSpatialOverlay::test_all_points_match",
+                "status": "passed",
+                "duration": 0.0004402482882142067,
+                "start": 1774965114.7030785,
+                "stop": 1774965114.7036953,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestComposite::test_band_ordering",
+                "status": "passed",
+                "duration": 0.020229488611221313,
+                "start": 1774965114.703877,
+                "stop": 1774965114.724324,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestNoData::test_dem_nodata",
+                "status": "passed",
+                "duration": 0.008294985629618168,
+                "start": 1774965114.7245262,
+                "stop": 1774965114.7330036,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestAudit::test_audit_exists_and_schema",
+                "status": "passed",
+                "duration": 0.0004488332197070122,
+                "start": 1774965114.7331946,
+                "stop": 1774965114.7338212,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestAudit::test_audit_crs_consistency",
+                "status": "passed",
+                "duration": 0.00041192397475242615,
+                "start": 1774965114.7340052,
+                "stop": 1774965114.7345934,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::TestAudit::test_audit_dimensions_consistent",
+                "status": "passed",
+                "duration": 0.0004166513681411743,
+                "start": 1774965114.7347791,
+                "stop": 1774965114.7353745,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            }
+        ]
+    }
+}

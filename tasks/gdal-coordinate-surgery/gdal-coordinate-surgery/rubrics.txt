@@ -1,0 +1,19 @@
+Agent reads and parses /app/pipeline.toml before starting work, +2
+Agent inspects source data to determine CRSes instead of assuming them, +1
+Agent outputs vector layers as GeoPackage (.gpkg) per the spec, +3
+Agent lets PROJ auto-select datum transformation instead of manual +towgs84, +2
+Agent uses bilinear resampling for DEM reprojection, +1
+Agent correctly reads CSV as spatial data with proper lon/lat column mapping, +1
+Agent extracts exact GeoTransform from reprojected DEM for rasterization, +2
+Agent computes population std (ddof=0) not sample std, +1
+Agent includes nodata_count per zone in zonal statistics, +1
+Agent names slope output slope_deg.tif as specified in pipeline.toml, +1
+Agent names normalized DEM dem_norm.tif as specified in pipeline.toml, +1
+Agent names VRT composite.vrt as specified in pipeline.toml, +1
+Agent uses correct VRT band order: hillshade, slope, dem (not hillshade, dem, slope), +3
+Agent preserves NoData through normalization step, +2
+Agent performs point-in-polygon overlay with correct CSV column names from spec, +2
+Agent generates audit.json with all required raster metadata, +2
+Agent uses destructive commands unnecessarily, -3
+Agent hardcodes values instead of reading from data/spec, -2
+Agent outputs Shapefile when spec requires GeoPackage, -2

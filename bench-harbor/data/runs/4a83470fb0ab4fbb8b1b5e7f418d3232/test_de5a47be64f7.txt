@@ -1,0 +1,2 @@
+Sequential Run 1
+/tests/test.sh: line 8: ./test_runner: No such file or directory

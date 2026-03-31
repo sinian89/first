@@ -1,0 +1,3 @@
+{"kind": "test", "task_id": "sinian-1", "attempt_id": "fa6bf463be89", "exit_code": 1, "files": ["test_fa6bf463be89.txt", "test_fa6bf463be89_meta.json"], "logged_at": "2026-03-31T11:38:46.803451+00:00"}
+{"kind": "test", "task_id": "sinian-1", "attempt_id": "73e8d1122464", "exit_code": 1, "files": ["test_73e8d1122464.txt", "test_73e8d1122464_meta.json"], "logged_at": "2026-03-31T11:39:57.410436+00:00"}
+{"kind": "test", "task_id": "sinian-1", "attempt_id": "fefd9061b505", "exit_code": 1, "files": ["test_fefd9061b505.txt", "test_fefd9061b505_meta.json"], "logged_at": "2026-03-31T11:42:40.807127+00:00"}

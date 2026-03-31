@@ -1,0 +1,10 @@
+{
+  "kind": "test",
+  "attempt_id": "58002a8d5f73",
+  "task_id": "gdal-coordinate-surgery/gdal-coordinate-surgery",
+  "exit_code": 0,
+  "script": "/tests/test.sh",
+  "stdout_stderr_file": "test_58002a8d5f73.txt",
+  "verifier_ctrf": "test_58002a8d5f73_ctrf.json",
+  "verifier_reward": "test_58002a8d5f73_reward.txt"
+}

@@ -1,0 +1,1 @@
+{"ts": "2026-03-31T01:18:29.747355+00:00", "type": "session_created", "attempt_id": null, "payload": {"task_id": "gdal-coordinate-surgery/gdal-coordinate-surgery", "image": "bench-harbor/gdal-coordinate-surgery-gdal-coordinate-surgery:local", "container_id": "d002f2902c4d9adbb8323c33b4708a220ea7d771f390b0e8955e7310a77feb1a"}}

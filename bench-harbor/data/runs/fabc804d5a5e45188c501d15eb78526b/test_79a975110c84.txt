@@ -1,0 +1,399 @@
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-8.4.1, pluggy-1.6.0 -- /usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collecting ... collected 22 items
+
+../tests/test_outputs.py::TestReprojection::test_dem_exists_and_crs FAILED [  4%]
+../tests/test_outputs.py::TestReprojection::test_zones_gpkg_exists_and_crs FAILED [  9%]
+../tests/test_outputs.py::TestReprojection::test_points_gpkg_exists_and_crs FAILED [ 13%]
+../tests/test_outputs.py::TestReprojection::test_datum_transformation_precision FAILED [ 18%]
+../tests/test_outputs.py::TestReprojection::test_bilinear_resampling FAILED [ 22%]
+../tests/test_outputs.py::TestReprojection::test_points_count FAILED     [ 27%]
+../tests/test_outputs.py::TestRasterization::test_grid_alignment FAILED  [ 31%]
+../tests/test_outputs.py::TestZonalStats::test_values FAILED             [ 36%]
+../tests/test_outputs.py::TestZonalStats::test_std_population FAILED     [ 40%]
+../tests/test_outputs.py::TestZonalStats::test_nodata_count FAILED       [ 45%]
+../tests/test_outputs.py::TestVectorJoin::test_enriched_gpkg FAILED      [ 50%]
+../tests/test_outputs.py::TestTerrain::test_hillshade FAILED             [ 54%]
+../tests/test_outputs.py::TestTerrain::test_slope_exists_and_degrees FAILED [ 59%]
+../tests/test_outputs.py::TestNormalized::test_range_and_nodata FAILED   [ 63%]
+../tests/test_outputs.py::TestNormalized::test_nodata_preserved FAILED   [ 68%]
+../tests/test_outputs.py::TestSpatialOverlay::test_csv_schema FAILED     [ 72%]
+../tests/test_outputs.py::TestSpatialOverlay::test_all_points_match FAILED [ 77%]
+../tests/test_outputs.py::TestComposite::test_band_ordering FAILED       [ 81%]
+../tests/test_outputs.py::TestNoData::test_dem_nodata FAILED             [ 86%]
+../tests/test_outputs.py::TestAudit::test_audit_exists_and_schema FAILED [ 90%]
+../tests/test_outputs.py::TestAudit::test_audit_crs_consistency FAILED   [ 95%]
+../tests/test_outputs.py::TestAudit::test_audit_dimensions_consistent FAILED [100%]
+
+=================================== FAILURES ===================================
+___________________ TestReprojection.test_dem_exists_and_crs ___________________
+
+self = <test_outputs.TestReprojection object at 0x7fba09d259f0>
+
+    def test_dem_exists_and_crs(self):
+        """Reprojected DEM must be in EPSG:3035."""
+        path = os.path.join(OUTPUT, "dem_3035.tif")
+>       assert os.path.exists(path), "dem_3035.tif not found"
+E       AssertionError: dem_3035.tif not found
+E       assert False
+E        +  where False = <function exists at 0x7fba153d1ea0>('/app/output/dem_3035.tif')
+E        +    where <function exists at 0x7fba153d1ea0> = <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'>.exists
+E        +      where <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'> = os.path
+
+/tests/test_outputs.py:37: AssertionError
+_______________ TestReprojection.test_zones_gpkg_exists_and_crs ________________
+
+self = <test_outputs.TestReprojection object at 0x7fba09d25b40>
+
+    def test_zones_gpkg_exists_and_crs(self):
+        """Reprojected zones must be GeoPackage format in EPSG:3035."""
+        path = os.path.join(OUTPUT, "zones_3035.gpkg")
+>       assert os.path.exists(path), (
+            "zones_3035.gpkg not found — spec requires GeoPackage, not Shapefile"
+        )
+E       AssertionError: zones_3035.gpkg not found — spec requires GeoPackage, not Shapefile
+E       assert False
+E        +  where False = <function exists at 0x7fba153d1ea0>('/app/output/zones_3035.gpkg')
+E        +    where <function exists at 0x7fba153d1ea0> = <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'>.exists
+E        +      where <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'> = os.path
+
+/tests/test_outputs.py:45: AssertionError
+_______________ TestReprojection.test_points_gpkg_exists_and_crs _______________
+
+self = <test_outputs.TestReprojection object at 0x7fba09d25cf0>
+
+    def test_points_gpkg_exists_and_crs(self):
+        """Reprojected points must be GeoPackage format in EPSG:3035."""
+        path = os.path.join(OUTPUT, "points_3035.gpkg")
+>       assert os.path.exists(path), (
+            "points_3035.gpkg not found — spec requires GeoPackage, not Shapefile"
+        )
+E       AssertionError: points_3035.gpkg not found — spec requires GeoPackage, not Shapefile
+E       assert False
+E        +  where False = <function exists at 0x7fba153d1ea0>('/app/output/points_3035.gpkg')
+E        +    where <function exists at 0x7fba153d1ea0> = <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'>.exists
+E        +      where <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'> = os.path
+
+/tests/test_outputs.py:56: AssertionError
+_____________ TestReprojection.test_datum_transformation_precision _____________
+
+self = <test_outputs.TestReprojection object at 0x7fba09d25ea0>
+
+    def test_datum_transformation_precision(self):
+        """
+        Zone centroids must be within 1m of the correct OSTN15-based position.
+        Catches agents using Helmert 7-param (+towgs84) instead of grid shift.
+        """
+        ds = ogr.Open(os.path.join(OUTPUT, "zones_3035.gpkg"))
+>       assert ds is not None, "Cannot open zones_3035.gpkg"
+E       AssertionError: Cannot open zones_3035.gpkg
+E       assert None is not None
+
+/tests/test_outputs.py:70: AssertionError
+__________________ TestReprojection.test_bilinear_resampling ___________________
+
+self = <test_outputs.TestReprojection object at 0x7fba09d26050>
+
+    def test_bilinear_resampling(self):
+        """DEM must use bilinear resampling (produces fractional values)."""
+>       dem = gdal.Open(os.path.join(OUTPUT, "dem_3035.tif"))
+
+/tests/test_outputs.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ('/app/output/dem_3035.tif',)
+
+    def Open(*args):
+        r"""Open(char const * utf8_path, GDALAccess eAccess=GA_ReadOnly) -> Dataset"""
+>       return _gdal.Open(*args)
+E       RuntimeError: /app/output/dem_3035.tif: No such file or directory
+
+/usr/lib/python3/dist-packages/osgeo/gdal.py:4112: RuntimeError
+______________________ TestReprojection.test_points_count ______________________
+
+self = <test_outputs.TestReprojection object at 0x7fba09d26200>
+
+    def test_points_count(self):
+        """All 20 points must survive reprojection."""
+        ds = ogr.Open(os.path.join(OUTPUT, "points_3035.gpkg"))
+>       layer = ds.GetLayer()
+E       AttributeError: 'NoneType' object has no attribute 'GetLayer'
+
+/tests/test_outputs.py:110: AttributeError
+____________________ TestRasterization.test_grid_alignment _____________________
+
+self = <test_outputs.TestRasterization object at 0x7fba09d264a0>
+
+    def test_grid_alignment(self):
+        """Identical dimensions, resolution, and extent as DEM."""
+>       dem = gdal.Open(os.path.join(OUTPUT, "dem_3035.tif"))
+
+/tests/test_outputs.py:124: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ('/app/output/dem_3035.tif',)
+
+    def Open(*args):
+        r"""Open(char const * utf8_path, GDALAccess eAccess=GA_ReadOnly) -> Dataset"""
+>       return _gdal.Open(*args)
+E       RuntimeError: /app/output/dem_3035.tif: No such file or directory
+
+/usr/lib/python3/dist-packages/osgeo/gdal.py:4112: RuntimeError
+__________________________ TestZonalStats.test_values __________________________
+
+self = <test_outputs.TestZonalStats object at 0x7fba09d266b0>
+
+    def test_values(self):
+        """Mean/min/max per zone must match independently computed reference."""
+        path = os.path.join(OUTPUT, "zonal_stats.json")
+>       assert os.path.exists(path), "zonal_stats.json not found"
+E       AssertionError: zonal_stats.json not found
+E       assert False
+E        +  where False = <function exists at 0x7fba153d1ea0>('/app/output/zonal_stats.json')
+E        +    where <function exists at 0x7fba153d1ea0> = <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'>.exists
+E        +      where <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'> = os.path
+
+/tests/test_outputs.py:149: AssertionError
+______________________ TestZonalStats.test_std_population ______________________
+
+self = <test_outputs.TestZonalStats object at 0x7fba09d26860>
+
+    def test_std_population(self):
+        """Standard deviation must be population (ddof=0), not sample (ddof=1)."""
+>       with open(os.path.join(OUTPUT, "zonal_stats.json")) as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/output/zonal_stats.json'
+
+/tests/test_outputs.py:173: FileNotFoundError
+_______________________ TestZonalStats.test_nodata_count _______________________
+
+self = <test_outputs.TestZonalStats object at 0x7fba09d26a10>
+
+    def test_nodata_count(self):
+        """Each zone must report NoData pixel count."""
+>       with open(os.path.join(OUTPUT, "zonal_stats.json")) as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/output/zonal_stats.json'
+
+/tests/test_outputs.py:194: FileNotFoundError
+______________________ TestVectorJoin.test_enriched_gpkg _______________________
+
+self = <test_outputs.TestVectorJoin object at 0x7fba09d26c80>
+
+    def test_enriched_gpkg(self):
+        """Must be GeoPackage with elev_mean/min/max/std/count fields."""
+        path = os.path.join(OUTPUT, "zones_enriched.gpkg")
+>       assert os.path.exists(path), (
+            "zones_enriched.gpkg not found — spec requires GeoPackage"
+        )
+E       AssertionError: zones_enriched.gpkg not found — spec requires GeoPackage
+E       assert False
+E        +  where False = <function exists at 0x7fba153d1ea0>('/app/output/zones_enriched.gpkg')
+E        +    where <function exists at 0x7fba153d1ea0> = <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'>.exists
+E        +      where <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'> = os.path
+
+/tests/test_outputs.py:219: AssertionError
+__________________________ TestTerrain.test_hillshade __________________________
+
+self = <test_outputs.TestTerrain object at 0x7fba09d267d0>
+
+    def test_hillshade(self):
+        """Hillshade must be single-band Byte with DEM-matching extent."""
+        path = os.path.join(OUTPUT, "hillshade.tif")
+>       assert os.path.exists(path), "hillshade.tif not found"
+E       AssertionError: hillshade.tif not found
+E       assert False
+E        +  where False = <function exists at 0x7fba153d1ea0>('/app/output/hillshade.tif')
+E        +    where <function exists at 0x7fba153d1ea0> = <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'>.exists
+E        +      where <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'> = os.path
+
+/tests/test_outputs.py:248: AssertionError
+__________________ TestTerrain.test_slope_exists_and_degrees ___________________
+
+self = <test_outputs.TestTerrain object at 0x7fba09d26170>
+
+    def test_slope_exists_and_degrees(self):
+        """Slope must be in degrees (max < 45 for gentle terrain), named slope_deg.tif."""
+        path = os.path.join(OUTPUT, "slope_deg.tif")
+>       assert os.path.exists(path), (
+            "slope_deg.tif not found — spec names it slope_deg.tif, not slope.tif"
+        )
+E       AssertionError: slope_deg.tif not found — spec names it slope_deg.tif, not slope.tif
+E       assert False
+E        +  where False = <function exists at 0x7fba153d1ea0>('/app/output/slope_deg.tif')
+E        +    where <function exists at 0x7fba153d1ea0> = <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'>.exists
+E        +      where <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'> = os.path
+
+/tests/test_outputs.py:256: AssertionError
+_____________________ TestNormalized.test_range_and_nodata _____________________
+
+self = <test_outputs.TestNormalized object at 0x7fba09d25ab0>
+
+    def test_range_and_nodata(self):
+        """Must be [0,1] for valid pixels, NoData preserved."""
+        path = os.path.join(OUTPUT, "dem_norm.tif")
+>       assert os.path.exists(path), (
+            "dem_norm.tif not found — spec names it dem_norm.tif"
+        )
+E       AssertionError: dem_norm.tif not found — spec names it dem_norm.tif
+E       assert False
+E        +  where False = <function exists at 0x7fba153d1ea0>('/app/output/dem_norm.tif')
+E        +    where <function exists at 0x7fba153d1ea0> = <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'>.exists
+E        +      where <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'> = os.path
+
+/tests/test_outputs.py:276: AssertionError
+_____________________ TestNormalized.test_nodata_preserved _____________________
+
+self = <test_outputs.TestNormalized object at 0x7fba09d26e30>
+
+    def test_nodata_preserved(self):
+        """Original NoData pixels must remain NoData after normalization."""
+>       orig = gdal.Open(os.path.join(OUTPUT, "dem_3035.tif"))
+
+/tests/test_outputs.py:294: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ('/app/output/dem_3035.tif',)
+
+    def Open(*args):
+        r"""Open(char const * utf8_path, GDALAccess eAccess=GA_ReadOnly) -> Dataset"""
+>       return _gdal.Open(*args)
+E       RuntimeError: /app/output/dem_3035.tif: No such file or directory
+
+/usr/lib/python3/dist-packages/osgeo/gdal.py:4112: RuntimeError
+______________________ TestSpatialOverlay.test_csv_schema ______________________
+
+self = <test_outputs.TestSpatialOverlay object at 0x7fba09d27070>
+
+    def test_csv_schema(self):
+        """Must have id, zone_id_attr, zone_id_spatial columns."""
+        path = os.path.join(OUTPUT, "point_zones.csv")
+>       assert os.path.exists(path), "point_zones.csv not found"
+E       AssertionError: point_zones.csv not found
+E       assert False
+E        +  where False = <function exists at 0x7fba153d1ea0>('/app/output/point_zones.csv')
+E        +    where <function exists at 0x7fba153d1ea0> = <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'>.exists
+E        +      where <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'> = os.path
+
+/tests/test_outputs.py:313: AssertionError
+___________________ TestSpatialOverlay.test_all_points_match ___________________
+
+self = <test_outputs.TestSpatialOverlay object at 0x7fba09d27220>
+
+    def test_all_points_match(self):
+        """All 20 points must have matching zone_id_attr and zone_id_spatial."""
+        path = os.path.join(OUTPUT, "point_zones.csv")
+>       with open(path) as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/output/point_zones.csv'
+
+/tests/test_outputs.py:324: FileNotFoundError
+_______________________ TestComposite.test_band_ordering _______________________
+
+self = <test_outputs.TestComposite object at 0x7fba09d27460>
+
+    def test_band_ordering(self):
+        """
+        Spec: band 1 = hillshade (Byte), band 2 = slope (Float32), band 3 = DEM (Float32).
+        NOTE: the order is hillshade, slope, dem — NOT hillshade, dem, slope.
+        """
+        path = os.path.join(OUTPUT, "composite.vrt")
+>       assert os.path.exists(path), (
+            "composite.vrt not found — spec names it composite.vrt, not combined.vrt"
+        )
+E       AssertionError: composite.vrt not found — spec names it composite.vrt, not combined.vrt
+E       assert False
+E        +  where False = <function exists at 0x7fba153d1ea0>('/app/output/composite.vrt')
+E        +    where <function exists at 0x7fba153d1ea0> = <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'>.exists
+E        +      where <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'> = os.path
+
+/tests/test_outputs.py:345: AssertionError
+__________________________ TestNoData.test_dem_nodata __________________________
+
+self = <test_outputs.TestNoData object at 0x7fba09d276a0>
+
+    def test_dem_nodata(self):
+        """Reprojected DEM must have NoData=-9999 with pixels present."""
+>       dem = gdal.Open(os.path.join(OUTPUT, "dem_3035.tif"))
+
+/tests/test_outputs.py:379: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ('/app/output/dem_3035.tif',)
+
+    def Open(*args):
+        r"""Open(char const * utf8_path, GDALAccess eAccess=GA_ReadOnly) -> Dataset"""
+>       return _gdal.Open(*args)
+E       RuntimeError: /app/output/dem_3035.tif: No such file or directory
+
+/usr/lib/python3/dist-packages/osgeo/gdal.py:4112: RuntimeError
+____________________ TestAudit.test_audit_exists_and_schema ____________________
+
+self = <test_outputs.TestAudit object at 0x7fba09d278b0>
+
+    def test_audit_exists_and_schema(self):
+        """Audit JSON must exist with entries for all five rasters."""
+        path = os.path.join(OUTPUT, "audit.json")
+>       assert os.path.exists(path), "audit.json not found"
+E       AssertionError: audit.json not found
+E       assert False
+E        +  where False = <function exists at 0x7fba153d1ea0>('/app/output/audit.json')
+E        +    where <function exists at 0x7fba153d1ea0> = <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'>.exists
+E        +      where <module 'posixpath' from '/usr/lib/python3.10/posixpath.py'> = os.path
+
+/tests/test_outputs.py:396: AssertionError
+_____________________ TestAudit.test_audit_crs_consistency _____________________
+
+self = <test_outputs.TestAudit object at 0x7fba09d27a60>
+
+    def test_audit_crs_consistency(self):
+        """All audited rasters must report EPSG:3035."""
+>       with open(os.path.join(OUTPUT, "audit.json")) as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/output/audit.json'
+
+/tests/test_outputs.py:411: FileNotFoundError
+__________________ TestAudit.test_audit_dimensions_consistent __________________
+
+self = <test_outputs.TestAudit object at 0x7fba09d27c10>
+
+    def test_audit_dimensions_consistent(self):
+        """DEM, zones_raster, hillshade, slope must share dimensions."""
+>       with open(os.path.join(OUTPUT, "audit.json")) as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/app/output/audit.json'
+
+/tests/test_outputs.py:420: FileNotFoundError
+=============================== warnings summary ===============================
+../usr/local/lib/python3.10/dist-packages/_pytest/cacheprovider.py:475
+  /usr/local/lib/python3.10/dist-packages/_pytest/cacheprovider.py:475: PytestCacheWarning: could not create cache path /tests/.pytest_cache/v/cache/nodeids: [Errno 30] Read-only file system: '/tests/pytest-cache-files-nwviqw_l'
+    config.cache.set("cache/nodeids", sorted(self.cached_nodeids))
+
+../usr/local/lib/python3.10/dist-packages/_pytest/cacheprovider.py:429
+  /usr/local/lib/python3.10/dist-packages/_pytest/cacheprovider.py:429: PytestCacheWarning: could not create cache path /tests/.pytest_cache/v/cache/lastfailed: [Errno 30] Read-only file system: '/tests/pytest-cache-files-3rgg4n8t'
+    config.cache.set("cache/lastfailed", self.lastfailed)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED ../tests/test_outputs.py::TestReprojection::test_dem_exists_and_crs - ...
+FAILED ../tests/test_outputs.py::TestReprojection::test_zones_gpkg_exists_and_crs
+FAILED ../tests/test_outputs.py::TestReprojection::test_points_gpkg_exists_and_crs
+FAILED ../tests/test_outputs.py::TestReprojection::test_datum_transformation_precision
+FAILED ../tests/test_outputs.py::TestReprojection::test_bilinear_resampling
+FAILED ../tests/test_outputs.py::TestReprojection::test_points_count - Attrib...
+FAILED ../tests/test_outputs.py::TestRasterization::test_grid_alignment - Run...
+FAILED ../tests/test_outputs.py::TestZonalStats::test_values - AssertionError...
+FAILED ../tests/test_outputs.py::TestZonalStats::test_std_population - FileNo...
+FAILED ../tests/test_outputs.py::TestZonalStats::test_nodata_count - FileNotF...
+FAILED ../tests/test_outputs.py::TestVectorJoin::test_enriched_gpkg - Asserti...
+FAILED ../tests/test_outputs.py::TestTerrain::test_hillshade - AssertionError...
+FAILED ../tests/test_outputs.py::TestTerrain::test_slope_exists_and_degrees
+FAILED ../tests/test_outputs.py::TestNormalized::test_range_and_nodata - Asse...
+FAILED ../tests/test_outputs.py::TestNormalized::test_nodata_preserved - Runt...
+FAILED ../tests/test_outputs.py::TestSpatialOverlay::test_csv_schema - Assert...
+FAILED ../tests/test_outputs.py::TestSpatialOverlay::test_all_points_match - ...
+FAILED ../tests/test_outputs.py::TestComposite::test_band_ordering - Assertio...
+FAILED ../tests/test_outputs.py::TestNoData::test_dem_nodata - RuntimeError: ...
+FAILED ../tests/test_outputs.py::TestAudit::test_audit_exists_and_schema - As...
+FAILED ../tests/test_outputs.py::TestAudit::test_audit_crs_consistency - File...
+FAILED ../tests/test_outputs.py::TestAudit::test_audit_dimensions_consistent
+======================== 22 failed, 2 warnings in 0.43s ========================

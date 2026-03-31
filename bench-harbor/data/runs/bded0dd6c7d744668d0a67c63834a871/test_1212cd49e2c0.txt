@@ -1,0 +1,15 @@
+In file included from solution.cpp:1,
+                 from test_runner.cpp:4:
+/usr/include/c++/11/atomic: In instantiation of 'struct std::atomic<std::shared_ptr<std::vector<std::__cxx11::basic_string<char> > > >':
+solution.cpp:100:60:   required from here
+/usr/include/c++/11/atomic:211:21: error: static assertion failed: std::atomic requires a trivially copyable type
+  211 |       static_assert(__is_trivially_copyable(_Tp),
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/11/atomic:211:21: note: 'false' evaluates to false
+test_runner.cpp:9:5: error: redefinition of 'int main()'
+    9 | int main() {
+      |     ^~~~
+In file included from test_runner.cpp:4:
+solution.cpp:122:5: note: 'int main()' previously defined here
+  122 | int main() {
+      |     ^~~~

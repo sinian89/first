@@ -1,0 +1,3 @@
+{"ts": "2026-03-31T11:31:00.299024+00:00", "type": "session_created", "attempt_id": null, "payload": {"task_id": "sinian-1", "image": "bench-harbor/sinian-1:local", "container_id": "b61007f52caf4af88909800849f548f6cf51da8f3f3a8bf2812cdf7f52b96f50"}}
+{"ts": "2026-03-31T11:31:05.534130+00:00", "type": "test_start", "attempt_id": "e5286df4c913", "payload": {"script": "/tests/test.sh"}}
+{"ts": "2026-03-31T11:31:06.310577+00:00", "type": "test_end", "attempt_id": "e5286df4c913", "payload": {"exit_code": 1, "output_chars": 829}}
