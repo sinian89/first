@@ -1,0 +1,41 @@
+In file included from /tests/test_runner.cpp:2:
+/app/solution.cpp: In constructor 'VarNode::VarNode(std::string)':
+/app/solution.cpp:24:56: error: no matching function for call to 'Node::Node()'
+   24 |     explicit VarNode(std::string n) : name(std::move(n)) {}
+      |                                                        ^
+/app/solution.cpp:17:5: note: candidate: 'constexpr Node::Node(Node&&)'
+   17 |     Node(Node&&) noexcept = default;
+      |     ^~~~
+/app/solution.cpp:17:5: note:   candidate expects 1 argument, 0 provided
+/app/solution.cpp: In constructor 'ConstNode::ConstNode(double)':
+/app/solution.cpp:33:43: error: no matching function for call to 'Node::Node()'
+   33 |     explicit ConstNode(double v) : value(v) {}
+      |                                           ^
+/app/solution.cpp:17:5: note: candidate: 'constexpr Node::Node(Node&&)'
+   17 |     Node(Node&&) noexcept = default;
+      |     ^~~~
+/app/solution.cpp:17:5: note:   candidate expects 1 argument, 0 provided
+/app/solution.cpp: In constructor 'AddNode::AddNode(NodePtr, NodePtr)':
+/app/solution.cpp:39:75: error: no matching function for call to 'Node::Node()'
+   39 |     AddNode(NodePtr a, NodePtr b) : left(std::move(a)), right(std::move(b)) {}
+      |                                                                           ^
+/app/solution.cpp:17:5: note: candidate: 'constexpr Node::Node(Node&&)'
+   17 |     Node(Node&&) noexcept = default;
+      |     ^~~~
+/app/solution.cpp:17:5: note:   candidate expects 1 argument, 0 provided
+/app/solution.cpp: In constructor 'MulNode::MulNode(NodePtr, NodePtr)':
+/app/solution.cpp:47:75: error: no matching function for call to 'Node::Node()'
+   47 |     MulNode(NodePtr a, NodePtr b) : left(std::move(a)), right(std::move(b)) {}
+      |                                                                           ^
+/app/solution.cpp:17:5: note: candidate: 'constexpr Node::Node(Node&&)'
+   17 |     Node(Node&&) noexcept = default;
+      |     ^~~~
+/app/solution.cpp:17:5: note:   candidate expects 1 argument, 0 provided
+/app/solution.cpp: In constructor 'SinNode::SinNode(NodePtr)':
+/app/solution.cpp:55:51: error: no matching function for call to 'Node::Node()'
+   55 |     explicit SinNode(NodePtr a) : arg(std::move(a)) {}
+      |                                                   ^
+/app/solution.cpp:17:5: note: candidate: 'constexpr Node::Node(Node&&)'
+   17 |     Node(Node&&) noexcept = default;
+      |     ^~~~
+/app/solution.cpp:17:5: note:   candidate expects 1 argument, 0 provided

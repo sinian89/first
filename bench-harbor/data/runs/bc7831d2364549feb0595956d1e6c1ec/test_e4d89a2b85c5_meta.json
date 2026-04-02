@@ -1,0 +1,10 @@
+{
+  "kind": "test",
+  "attempt_id": "e4d89a2b85c5",
+  "task_id": "sinian-1",
+  "exit_code": 1,
+  "script": "/tests/test.sh",
+  "stdout_stderr_file": "test_e4d89a2b85c5.txt",
+  "verifier_ctrf": null,
+  "verifier_reward": null
+}

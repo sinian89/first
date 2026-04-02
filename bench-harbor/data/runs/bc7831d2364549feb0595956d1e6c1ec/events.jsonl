@@ -1,0 +1,2 @@
+{"ts": "2026-04-02T04:00:24.474163+00:00", "type": "test_start", "attempt_id": "e4d89a2b85c5", "payload": {"script": "/tests/test.sh"}}
+{"ts": "2026-04-02T04:00:25.190929+00:00", "type": "test_end", "attempt_id": "e4d89a2b85c5", "payload": {"exit_code": 1, "output_chars": 2528}}
