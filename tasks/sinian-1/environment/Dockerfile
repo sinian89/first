@@ -1,18 +1,13 @@
+# C++20 expression-engine task: agent writes /app/solution.cpp; verifier builds with g++ -std=c++20 -pthread.
 FROM ubuntu:22.04
 
-# Install build tools
-RUN apt-get update && apt-get install -y \
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
     g++ \
-    clang \
-    make \
-    cmake \
     && rm -rf /var/lib/apt/lists/*
 
-# Set working directory
 WORKDIR /app
 
-# Copy all files
-COPY . .
-
-# Default command (can override)
-CMD ["bash", "run.sh"]
+# Bench-harbor overrides this with sleep infinity; keep a sane default for ad-hoc runs.
+CMD ["sleep", "infinity"]

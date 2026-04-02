@@ -1,3 +1,0 @@
-Now sequential stress
-Sequential Run 1
-/tests/test.sh: line 11:    52 Segmentation fault      (core dumped) /tmp/test_runner

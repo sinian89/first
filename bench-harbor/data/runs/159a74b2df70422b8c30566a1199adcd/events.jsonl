@@ -1,4 +1,0 @@
-{"ts": "2026-03-31T13:24:55.755144+00:00", "type": "session_created", "attempt_id": null, "payload": {"task_id": "sinian-1", "image": "bench-harbor/sinian-1:local", "container_id": "0b8688af2dedf7073bba5d145111cf51a6a5053e69d2c82ca0b784883bf3464c"}}
-{"ts": "2026-03-31T13:24:59.034169+00:00", "type": "human_start", "attempt_id": "fe7b01a2327a", "payload": {}}
-{"ts": "2026-03-31T13:24:59.879990+00:00", "type": "terminal_attached", "attempt_id": null, "payload": {"container": "0b8688af2ded", "pty": true}}
-{"ts": "2026-03-31T13:27:11.032269+00:00", "type": "terminal_detached", "attempt_id": null, "payload": {"bytes_to_container": 2631, "bytes_from_container": 4311}}

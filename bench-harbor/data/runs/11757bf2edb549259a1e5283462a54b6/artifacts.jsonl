@@ -1,1 +1,0 @@
-{"kind": "test", "task_id": "gdal-coordinate-surgery/gdal-coordinate-surgery", "attempt_id": "08a1b983698e", "exit_code": 1, "files": ["test_08a1b983698e.txt", "test_08a1b983698e_ctrf.json", "test_08a1b983698e_meta.json"], "logged_at": "2026-03-31T13:51:18.782155+00:00"}

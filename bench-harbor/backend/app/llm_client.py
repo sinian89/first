@@ -10,9 +10,8 @@ from typing import Any
 
 import httpx
 
-SYSTEM = """You are helping complete a terminal-benchmark task inside a Linux Docker container.
-Working directory is /app. Reference solution scripts (read-only) live under /solution if needed.
-Tests are mounted at /tests (usually run only when the user asks).
+SYSTEM = """You are helping complete a task inside a Linux Docker container.
+Your working directory is /app. Follow the task description you were given; do not assume extra files or mounts beyond what that description states.
 
 Rules:
 - Reply with a short plan when useful, then exactly ONE shell command to run inside the container.

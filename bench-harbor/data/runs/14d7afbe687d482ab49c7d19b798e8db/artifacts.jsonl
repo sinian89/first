@@ -1,2 +1,0 @@
-{"kind": "oracle", "task_id": "gdal-coordinate-surgery/gdal-coordinate-surgery", "attempt_id": "7085acfebbb5", "exit_code": 0, "files": ["oracle_7085acfebbb5.txt", "oracle_7085acfebbb5_meta.json"], "logged_at": "2026-03-31T13:51:37.633862+00:00"}
-{"kind": "test", "task_id": "gdal-coordinate-surgery/gdal-coordinate-surgery", "attempt_id": "58002a8d5f73", "exit_code": 0, "files": ["test_58002a8d5f73.txt", "test_58002a8d5f73_ctrf.json", "test_58002a8d5f73_reward.txt", "test_58002a8d5f73_meta.json"], "logged_at": "2026-03-31T13:51:54.921652+00:00"}

@@ -1,16 +1,13 @@
+// Submitted implementation: /app/solution.cpp (see instruction.md). test.sh checks it exists before g++.
+#include "/app/solution.cpp"
+
 #include <cstdlib>
 #include <iostream>
 
 #include "test.cpp"
 
 int main() {
-    constexpr const char* kPythonPath = "/app";
-    if (setenv("PYTHONPATH", kPythonPath, 1) != 0) {
-        std::cerr << "setenv PYTHONPATH failed\n";
-        return 1;
-    }
-
-    std::cout << "Running tests...\n";
+    std::cout << "Running tests (against /app/solution.cpp)...\n";
 
     test_dangling_string_view();
     test_concurrent_intern();
@@ -24,4 +21,5 @@ int main() {
     test_combined();
 
     std::cout << "Done.\n";
+    return 0;
 }

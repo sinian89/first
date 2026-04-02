@@ -1,3 +1,0 @@
-{"ts": "2026-03-31T02:58:18.302898+00:00", "type": "session_created", "attempt_id": null, "payload": {"task_id": "gdal-coordinate-surgery/gdal-coordinate-surgery", "image": "bench-harbor/gdal-coordinate-surgery-gdal-coordinate-surgery:local", "container_id": "c89d87bf6c87aa8489bc105ab64d63d415d2d52827a3e9c5f7a9219c2eb65c4c"}}
-{"ts": "2026-03-31T03:05:06.197160+00:00", "type": "oracle_start", "attempt_id": "ab35f35a205c", "payload": {"script": "/solution/solve.sh"}}
-{"ts": "2026-03-31T03:05:07.767149+00:00", "type": "oracle_end", "attempt_id": "ab35f35a205c", "payload": {"exit_code": 0, "output_chars": 1552}}

@@ -1,16 +1,22 @@
-#include<iostream>
-#include<thread>
-#include<vector>
-#include<string>
-#include<memory>
-#include<atomic>
-#include<mutex>
-#include<condition_variable>
-#include<chrono>
-#include<functional>
-#include<cmath>
+#include <atomic>
+#include <cmath>
+#include <cstdlib>
+#include <iostream>
+#include <memory>
+#include <string>
+#include <thread>
+#include <vector>
 
-#include "../solution/solution-1.cpp"
+[[noreturn]] static void test_fail(const char* msg) {
+    std::cerr << "FAIL: " << msg << '\n';
+    std::exit(1);
+}
+
+static void test_expect(bool ok, const char* msg) {
+    if (!ok) {
+        test_fail(msg);
+    }
+}
 
 void test_dangling_string_view() {
     std::cout << "[test] dangling_string_view: start\n";
@@ -20,10 +26,8 @@ void test_dangling_string_view() {
     for (int i = 0; i < 100000; ++i) {
         auto e = make_mul(var("x"), var("x"));
         double v = eval(*e, ctx);
-
         if (v != 100.0) {
-            std::cout << "FAIL (dangling): " << v << "\n";
-            return;
+            test_fail("dangling_string_view: expected 100.0");
         }
     }
     std::cout << "[test] dangling_string_view: pass\n";
@@ -35,6 +39,7 @@ void test_concurrent_intern() {
     ctx.vars["x"] = 3.0;
     ctx.vars["y"] = 4.0;
 
+    std::atomic<bool> bad{false};
     std::vector<std::thread> threads;
 
     for (int t = 0; t < 16; ++t) {
@@ -48,33 +53,25 @@ void test_concurrent_intern() {
                 double v = eval(*e, ctx);
 
                 if (v < 8.0 || v > 10.0) {
-                    std::cout << "FAIL (race): " << v << "\n";
+                    bad.store(true, std::memory_order_relaxed);
                 }
             }
         });
     }
 
-    for (auto& t : threads) t.join();
-    std::cout << "[test] concurrent_intern: join complete\n";
+    for (auto& t : threads) {
+        t.join();
+    }
+    test_expect(!bad.load(), "concurrent_intern: eval out of expected range [8,10]");
+    std::cout << "[test] concurrent_intern: pass\n";
 }
-
-struct UniqueConst {
-    std::unique_ptr<double> value;
-
-    UniqueConst(double v) : value(std::make_unique<double>(v)) {}
-
-    UniqueConst(const UniqueConst&) = delete;
-    UniqueConst(UniqueConst&&) = default;
-
-    double eval() const { return *value; }
-};
 
 void test_move_only() {
     std::cout << "[test] move_only: start\n";
-    auto a = std::make_unique<Node>(Const{5.0});
-    auto b = std::make_unique<Node>(Const{3.0});
-
-    auto expr = make_add(std::move(a), std::move(b));
+    auto expr = make_add(make_const(5.0), make_const(3.0));
+    Context ctx;
+    double v = eval(*expr, ctx);
+    test_expect(v == 8.0, "move_only: expected 5+3=8");
     std::cout << "[test] move_only: pass\n";
 }
 
@@ -89,15 +86,14 @@ void test_symbol_identity() {
     double a = eval(*v1, ctx);
     double b = eval(*v2, ctx);
 
-    if (a != b) {
-        std::cout << "FAIL (symbol mismatch)\n";
-    } else {
-        std::cout << "[test] symbol_identity: pass (a=b=" << a << ")\n";
-    }
+    test_expect(a == b, "symbol_identity: two var(\"x\") must agree");
+    std::cout << "[test] symbol_identity: pass (a=b=" << a << ")\n";
 }
 
 NodePtr build_deep(int depth) {
-    if (depth == 0) return make_const(1.0);
+    if (depth == 0) {
+        return make_const(1.0);
+    }
     return make_add(build_deep(depth - 1), make_const(1.0));
 }
 
@@ -108,7 +104,8 @@ void test_deep_tree() {
     Context ctx;
     double v = eval(*expr, ctx);
 
-    std::cout << "[test] deep_tree: result " << v << "\n";
+    test_expect(v == 10001.0, "deep_tree: expected 10001");
+    std::cout << "[test] deep_tree: pass (v=" << v << ")\n";
 }
 
 void test_aliasing() {
@@ -123,7 +120,9 @@ void test_aliasing() {
     Context ctx;
     ctx.vars["x"] = 2.0;
 
-    std::cout << "[test] aliasing: eval -> " << eval(*expr, ctx) << "\n";
+    double v = eval(*expr, ctx);
+    test_expect(v == 8.0, "aliasing: expected 2*2+2*2=8");
+    std::cout << "[test] aliasing: pass\n";
 }
 
 void test_intern_stress() {
@@ -132,7 +131,16 @@ void test_intern_stress() {
         var("var_" + std::to_string(i));
     }
 
-    std::cout << "[test] intern_stress: done\n";
+    Context ctx;
+    ctx.vars["var_42"] = 7.0;
+    ctx.vars["var_199999"] = -1.5;
+
+    auto e1 = var("var_42");
+    auto e2 = var("var_199999");
+    test_expect(eval(*e1, ctx) == 7.0, "intern_stress: lookup var_42 after mass intern");
+    test_expect(eval(*e2, ctx) == -1.5, "intern_stress: lookup var_199999 after mass intern");
+
+    std::cout << "[test] intern_stress: pass\n";
 }
 
 void test_precision() {
@@ -144,11 +152,8 @@ void test_precision() {
 
     double v = eval(*expr, ctx);
 
-    if (v <= 0.0) {
-        std::cout << "FAIL (precision)\n";
-    } else {
-        std::cout << "[test] precision: pass (v=" << v << ")\n";
-    }
+    test_expect(v > 0.0, "precision: x*x must be > 0 for x=1e-8");
+    std::cout << "[test] precision: pass (v=" << v << ")\n";
 }
 
 void test_missing_var() {
@@ -159,11 +164,8 @@ void test_missing_var() {
 
     double v = eval(*expr, ctx);
 
-    if (v != 0.0) {
-        std::cout << "FAIL (missing var)\n";
-    } else {
-        std::cout << "[test] missing_var: pass\n";
-    }
+    test_expect(v == 0.0, "missing_var: unknown symbol must evaluate to 0.0");
+    std::cout << "[test] missing_var: pass\n";
 }
 
 void test_combined() {
@@ -172,6 +174,7 @@ void test_combined() {
     ctx.vars["x"] = 3.0;
     ctx.vars["y"] = 4.0;
 
+    std::atomic<bool> bad{false};
     std::vector<std::thread> threads;
 
     for (int t = 0; t < 8; ++t) {
@@ -185,12 +188,15 @@ void test_combined() {
                 double v = eval(*expr, ctx);
 
                 if (v < 8.0 || v > 10.0) {
-                    std::cout << "FAIL (combined): " << v << "\n";
+                    bad.store(true, std::memory_order_relaxed);
                 }
             }
         });
     }
 
-    for (auto& t : threads) t.join();
-    std::cout << "[test] combined: join complete\n";
+    for (auto& t : threads) {
+        t.join();
+    }
+    test_expect(!bad.load(), "combined: eval out of expected range [8,10]");
+    std::cout << "[test] combined: pass\n";
 }

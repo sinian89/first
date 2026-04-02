@@ -1,6 +1,0 @@
-[
-  {
-    "step": 0,
-    "error": "Client error '404 Not Found' for url 'https://llm.chutes.ai/v1/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
-  }
-]

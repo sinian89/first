@@ -1,8 +1,0 @@
-{
-  "kind": "oracle",
-  "attempt_id": "7085acfebbb5",
-  "task_id": "gdal-coordinate-surgery/gdal-coordinate-surgery",
-  "exit_code": 0,
-  "script": "/solution/solve.sh",
-  "stdout_stderr_file": "oracle_7085acfebbb5.txt"
-}

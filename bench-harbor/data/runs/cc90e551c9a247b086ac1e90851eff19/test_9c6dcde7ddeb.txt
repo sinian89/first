@@ -1,7 +1,0 @@
-/tests/test_runner.cpp:10:5: error: redefinition of 'int main()'
-   10 | int main() {
-      |     ^~~~
-In file included from /tests/test_runner.cpp:5:
-/app/solution.cpp:122:5: note: 'int main()' previously defined here
-  122 | int main() {
-      |     ^~~~

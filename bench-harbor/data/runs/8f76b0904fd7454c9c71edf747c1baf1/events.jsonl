@@ -1,1 +1,0 @@
-{"ts": "2026-03-31T13:00:12.587929+00:00", "type": "session_created", "attempt_id": null, "payload": {"task_id": "sinian-1", "image": "bench-harbor/sinian-1:local", "container_id": "90319a5af980a64c7c567420b070d6816a86157a560a574d9be5000059a1e10b"}}

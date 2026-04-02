@@ -1,31 +1,34 @@
 You will implement a C++20 symbolic expression engine.
 
-=== REQUIRED CODE STRUCTURE ===
+Create a **single file** `solution.cpp` under `/app` (Docker working directory). It must be one translation unit, use **only** the C++ standard library, target **C++20**, and **must not** define `main()`.
 
-Your code must compile as a single translation unit and must define the following types and functions exactly in a single file named solution.cpp:
+Define these types and functions with **exactly** these names and signatures:
 
-Types:
-- struct Context
-- struct Node
-- using NodePtr = std::unique_ptr<Node>
+**Types**
 
-Required API:
-- NodePtr var(std::string name);
-- NodePtr make_const(double value);
-- NodePtr make_add(NodePtr a, NodePtr b);
-- NodePtr make_mul(NodePtr a, NodePtr b);
-- NodePtr make_sin(NodePtr a);
+- `struct Context` with a public member `std::unordered_map<std::string, double> vars;` (the verifier supplies values via `ctx.vars[...]`).
+- `struct Node`
+- `using NodePtr = std::unique_ptr<Node>;`
 
-Evaluation:
-- double eval(const Node& node, const Context& ctx);
+`Node` must be **movable**. Factories take child expressions as `NodePtr` consumed by move.
 
-General requirements:
-- Code must compile with C++20.
-- Use only C++ standard library.
-- Do not include a main() function.
-- All functionality must be implemented within the provided interfaces.
-- Results must be consistent across repeated executions.
-- Expressions must evaluate to correct numeric results.
+**API**
+
+- `NodePtr var(std::string name);`
+- `NodePtr make_const(double value);`
+- `NodePtr make_add(NodePtr a, NodePtr b);`
+- `NodePtr make_mul(NodePtr a, NodePtr b);`
+- `NodePtr make_sin(NodePtr a);`
+- `double eval(const Node& node, const Context& ctx);`
+
+**Behavior (high level)**
+
+- Build expressions from constants, named variables (`var`), add, multiply, and sine (radian argument, same convention as `std::sin`).
+- Arithmetic follows normal IEEE-754 `double` rules where applicable.
+- Variable lookup uses `ctx.vars`. Any finer rules are enforced by the verifier.
+- `var`, the `make_*` functions, and `eval` must be safe when used from **multiple threads at once**.
+- For the same tree and the same `Context`, results must be **deterministic** across runs.
+
+You may define private helper types inside `solution.cpp` as needed.
 
 Provide a correct implementation.
-And your current path is /app/ in docker. You can create solution.cpp file here.

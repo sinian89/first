@@ -1,5 +1,0 @@
-In file included from /tests/test_runner.cpp:4:
-/tests/test.cpp:13:10: fatal error: solution.cpp: No such file or directory
-   13 | #include "solution.cpp"
-      |          ^~~~~~~~~~~~~~
-compilation terminated.
